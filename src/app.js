@@ -4,8 +4,9 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const NODE_ENV = require('./config')
-const notesRouter = require('./notes/notes-router')
-const foldersRouter = require('./folders/folders-router')
+const clientContactRouter = require('./clientContact/clientContact-router')
+const emergencyContactRouter = require('./emergencyContact/emergencyContact-router')
+const clientInfoRouter = require('./clientInfo/clientInfo-router')
 
 const app = express()
 
@@ -17,12 +18,10 @@ app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
 
-app.use('/api/notes', notesRouter)
-app.use('/api/folders', foldersRouter)
-
-app.get('/', (req, res) => {
-    res.send('Hello, world!');
-})
+app.use('/api/client/contact', clientContactRouter)
+app.use('/api/client/emergency', emergencyContactRouter)
+app.use('/api/client/info', clientInfoRouter)
+app.use('/api/client/meals', mealsRouter)
 
 app.use(function errorHandler(error, req, res, next) {
     let response
